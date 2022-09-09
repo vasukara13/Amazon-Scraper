@@ -34,7 +34,8 @@ def get_title(soup):
 def get_price(soup):
 
 	try:
-		price = soup.find("span", attrs={'id':'priceblock_ourprice'}).string.strip()
+		price = soup.find("span", attrs={'class':'a-size-base a-color-price a-color-price'}).string.strip()
+
 
 	except AttributeError:
 
@@ -86,28 +87,30 @@ def get_availability(soup):
 def extract_info(soups):
     links = soups.find_all('a', attrs={'class':'a-link-normal'})
     links_list = []
-    # Loop for extracting links from Tag Objects
+
     for link in links:
         links_list.append(link.get('href'))
-    #links_list=set(links_list)
+    links_list = [*set(links_list)]
+
     print(links_list,sep='\n')
     for i in links_list:      
         try:  
             time.sleep(1)
             req=requests.get(base_link+i,headers=headers)
-            #page = requests.get(url, verify=False)
-        
+
             if req.status_code < 500:
                 soup = BeautifulSoup(req.content, 'html.parser')
-                product_link.append(base_link+i)
+                if get_title(soup)=='NULL':
+                    continue
                 title.append(get_title(soup))
+                product_link.append(base_link+i)
+
                 author_name.append(get_author(soup))
                 availability.append(get_availability(soup))
                 price_list.append(get_price(soup))
                 rating.append(get_rating(soup))
                 review_count_list.append(get_review_count(soup))
                 req.close()
-                print(title)
             else:
                 print("Link opening error : 404")
                 
