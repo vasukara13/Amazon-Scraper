@@ -1,7 +1,7 @@
-# Amazon-Scrapper
-Amazon scrapper made with BeautifulSoap ,Requests and Pandas
+# Amazon-Scraper
+Amazon scraper made with BeautifulSoap ,Requests and Pandas
 
-Scrapper to scrap bestseller books from amazon.
+Scraper to scrap bestseller books from amazon.
 Getting Information like Title,Price,Author Name,Availability,Rating,Review Count,Link
 
 There is a 1 second delay in every request made to amazon as amazon only allows scrapper to make 1 request/sec.
